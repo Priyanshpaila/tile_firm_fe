@@ -1,26 +1,85 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin "tailwindcss-animate";
 
-@theme inline {
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-heading: var(--font-heading), var(--font-sans);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* TileVista Premium Palette */
+  --color-primary-50: #fbf8f3;
+  --color-primary-100: #f5eedf;
+  --color-primary-200: #eadbbf;
+  --color-primary-300: #ddc298;
+  --color-primary-400: #cfa26b;
+  --color-primary-500: #c28747;
+  --color-primary-600: #b56f3b;
+  --color-primary-700: #975834;
+  --color-primary-800: #7a482e;
+  --color-primary-900: #623c28;
+  --color-primary-950: #351e12;
+
+  --color-primary: var(--color-primary-600);
+  --color-primary-foreground: #ffffff;
+
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+
+  --color-accent: var(--color-primary-100);
+  --color-accent-foreground: var(--color-primary-900);
+
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-ring: var(--color-primary-600);
+
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #09090b;
+    --foreground: #fafafa;
+    --color-border: #27272a;
+    --color-input: #27272a;
+    --color-muted: #27272a;
+    --color-muted-foreground: #a1a1aa;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base styles for Lenis smooth scrolling and GSAP */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
