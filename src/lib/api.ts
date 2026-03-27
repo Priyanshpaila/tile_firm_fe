@@ -1,11 +1,11 @@
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 /**
  * Global Axios instance configured for TileVista backend
  */
-export const api = axios.create({
+export const api: AxiosInstance = axios.create({
   baseURL: API_URL,
   withCredentials: true, // Crucial for httpOnly cookies (JWT)
   headers: {
@@ -25,7 +25,7 @@ api.interceptors.request.use(
 
 // Response interceptor
 api.interceptors.response.use(
-  (response) => response.data,
+  (response: AxiosResponse) => response.data,
   async (error) => {
     const originalRequest = error.config;
     

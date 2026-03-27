@@ -1,68 +1,136 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const testimonials = [
   {
     name: 'Sarah Jenkins',
-    role: 'Interior Designer',
-    text: "The 3D visualizer tool completely changed how I present designs to my clients. The tile quality is exceptional."
+    role: 'Principal Architect • Atelier SJ',
+    text:
+      "The spatial intelligence of Tile Firm's visualizer has redefined our material procurement protocol. The fidelity of the surface textures is unprecedented.",
   },
   {
     name: 'Michael Chen',
-    role: 'Homeowner',
-    text: "I was hesitant to buy tiles online until I uploaded a photo of my bathroom. Seeing the marble layout in my own space gave me 100% confidence."
+    role: 'Collector & Homeowner',
+    text:
+      'I was hesitant until I utilized the environment mapping. Seeing the Statuario marble layout within my own architectural context provided absolute certainty.',
   },
   {
-    name: 'Emily R.',
-    role: 'Architect',
-    text: "Fast delivery, premium finishes, and the booking system for home measurements was incredibly smooth."
-  }
+    name: 'Emily Riviera',
+    role: 'Interior Curator',
+    text:
+      'Exquisite finishes, seamless logistics, and a booking system that respects the pace of high-end design. A true partner in material excellence.',
+  },
 ];
 
 export function TestimonialSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement | null>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(cardsRef.current,
-        { y: 40, opacity: 0 },
-        { 
-          scrollTrigger: { trigger: containerRef.current, start: 'top 80%' },
-          y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'power2.out' 
-        }
+  useGSAP(
+    () => {
+      const cards = cardsRef.current.filter(
+        (card): card is HTMLDivElement => card !== null
       );
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 75%',
+        },
+      });
+
+      tl.fromTo(
+        titleRef.current,
+        { y: 60, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 1.5, ease: 'expo.out' }
+      ).fromTo(
+        cards,
+        { y: 100, opacity: 0, scale: 0.98 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.8,
+          stagger: 0.2,
+          ease: 'expo.out',
+        },
+        '-=1.2'
+      );
+
+      cards.forEach((card, i) => {
+        gsap.to(card, {
+          y: -10,
+          duration: 3 + i,
+          yoyo: true,
+          repeat: -1,
+          ease: 'sine.inOut',
+          delay: i * 0.5,
+        });
+      });
+    },
+    { scope: containerRef }
+  );
 
   return (
-    <section ref={containerRef} className="py-24 bg-zinc-50 dark:bg-zinc-900 border-t border-border">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-16 font-heading">What Our Clients Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section
+      ref={containerRef}
+      className="overflow-hidden border-t border-brand-beige/30 bg-brand-cream py-40"
+    >
+      <div className="container mx-auto px-6">
+        <div className="mx-auto mb-28 max-w-4xl text-center">
+          <div className="mb-6 overflow-hidden">
+            <span className="inline-block text-[10px] font-black uppercase tracking-[0.5em] text-brand-gold italic">
+              Architectural Reviews • V2.0
+            </span>
+          </div>
+          <h2
+            ref={titleRef}
+            className="text-center text-5xl font-bold font-heading leading-[0.9] tracking-tighter text-brand-charcoal opacity-0 italic md:text-7xl"
+          >
+            The Atelier <span className="text-brand-gold">Dialogue.</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           {testimonials.map((t, i) => (
-            <div 
-              key={i} 
-              ref={(el) => { cardsRef.current[i] = el; }}
-              className="bg-background p-8 rounded-2xl shadow-sm border border-border flex flex-col justify-between"
+            <div
+              key={t.name}
+              ref={(el) => {
+                cardsRef.current[i] = el;
+              }}
+              className="group relative flex flex-col justify-between rounded-[3.5rem] border border-brand-beige/50 bg-white p-14 opacity-0 shadow-2xl shadow-brand-charcoal/5 transition-all duration-700 hover:border-brand-gold"
             >
-              <div className="mb-6">
-                {/* 5 Stars */}
-                <div className="flex gap-1 text-primary mb-4">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <svg key={j} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
+              <div className="relative mb-14">
+                <div className="mb-10 text-brand-gold/10 transition-colors duration-500 group-hover:text-brand-gold/20">
+                  <svg width="40" height="30" viewBox="0 0 40 30" fill="currentColor">
+                    <path d="M0 30V15.3846C0 10.3846 1.15385 6.46154 3.46154 3.61538C5.84615 0.769231 9.38462 -0.384615 14.0769 0.153846V6.92308C11.3077 6.92308 9.46154 7.69231 8.53846 9.23077C7.61538 10.6923 7.15385 12.3846 7.15385 14.3077H14.0769V30H0ZM25.9231 30V15.3846C25.9231 10.3846 27.0769 6.46154 29.3846 3.61538C31.7692 0.769231 35.3077 -0.384615 40 0.153846V6.92308C37.2308 6.92308 35.3846 7.69231 34.4615 9.23077C33.5385 10.6923 33.0769 12.3846 33.0769 14.3077H40V30H25.9231Z" />
+                  </svg>
                 </div>
-                <p className="text-lg italic text-muted-foreground">"{t.text}"</p>
+
+                <p className="text-xl font-medium leading-relaxed text-brand-taupe opacity-90 transition-colors duration-500 group-hover:text-brand-charcoal italic">
+                  "{t.text}"
+                </p>
               </div>
-              <div>
-                <p className="font-bold text-foreground">{t.name}</p>
-                <p className="text-sm text-primary">{t.role}</p>
+
+              <div className="flex items-center gap-6 border-t border-brand-beige/30 pt-10">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-charcoal text-2xl font-bold text-brand-gold shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                  {t.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="text-xl font-bold tracking-tighter text-brand-charcoal italic">
+                    {t.name}
+                  </p>
+                  <p className="mt-1 text-[10px] font-black uppercase tracking-[0.2em] text-brand-gold italic">
+                    {t.role}
+                  </p>
+                </div>
               </div>
             </div>
           ))}

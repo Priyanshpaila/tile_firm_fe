@@ -3,24 +3,31 @@ import { cn } from '@/lib/utils';
 
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('rounded-xl border border-border bg-card text-card-foreground shadow-sm bg-white dark:bg-zinc-950', className)} {...props} />
+    <div ref={ref} className={cn('rounded-[2.5rem] border border-brand-beige bg-white text-brand-charcoal shadow-sm transition-all duration-500', className)} {...props} />
   )
 );
 Card.displayName = 'Card';
 
 const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex flex-col space-y-1.5 p-6', className)} {...props} />
+    <div ref={ref} className={cn('flex flex-col space-y-1.5 p-10', className)} {...props} />
   )
 );
 CardHeader.displayName = 'CardHeader';
 
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn('font-semibold leading-none tracking-tight font-heading', className)} {...props} />
+    <h3 ref={ref} className={cn('font-bold leading-none tracking-tight font-heading text-2xl', className)} {...props} />
   )
 );
 CardTitle.displayName = 'CardTitle';
+
+const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
+  ({ className, ...props }, ref) => (
+    <p ref={ref} className={cn('text-sm text-brand-taupe italic', className)} {...props} />
+  )
+);
+CardDescription.displayName = 'CardDescription';
 
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
@@ -36,4 +43,4 @@ const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 );
 CardFooter.displayName = 'CardFooter';
 
-export { Card, CardHeader, CardFooter, CardTitle, CardContent };
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };

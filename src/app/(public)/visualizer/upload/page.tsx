@@ -16,54 +16,56 @@ export default function UploadVisualizerPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 h-[calc(100vh-8rem)] flex flex-col">
-      <div className="mb-6 flex items-center gap-4">
-        <Link href="/visualizer" className="text-sm text-muted-foreground hover:text-foreground">
-          &larr; Back
+    <div className="container mx-auto px-6 py-20 min-h-screen flex flex-col bg-brand-cream">
+      <div className="mb-12 flex items-center gap-8">
+        <Link href="/visualizer" className="group text-[10px] font-bold text-brand-taupe hover:text-brand-gold inline-flex items-center gap-3 uppercase tracking-[0.3em] transition-all">
+          <span className="text-xl group-hover:-translate-x-2 transition-transform">←</span> Back
         </Link>
-        <h1 className="text-2xl font-bold font-heading px-4 border-l border-border">Upload Room Visualizer</h1>
+        <div className="h-8 w-[1px] bg-brand-beige" />
+        <h1 className="text-3xl font-black font-heading tracking-tighter text-brand-charcoal uppercase leading-tight italic">AI Room <span className="text-brand-gold">Transformation</span></h1>
       </div>
 
-      <div className="flex-1 flex gap-8">
+      <div className="flex-1 flex flex-col lg:grid lg:grid-cols-[1fr_380px] gap-12">
         {/* Workspace Area */}
-        <div className="flex-1 bg-zinc-100 dark:bg-zinc-900 border border-border rounded-xl flex items-center justify-center relative overflow-hidden">
+        <div className="flex-1 bg-brand-beige/50 border border-brand-beige rounded-[3.5rem] flex items-center justify-center relative overflow-hidden shadow-inner min-h-[500px]">
           {!photoUploaded ? (
-            <div className="text-center p-8">
-              <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 text-primary rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+            <div className="text-center p-12">
+              <div className="w-24 h-24 mx-auto mb-10 bg-brand-gold/10 text-brand-gold rounded-[2.5rem] flex items-center justify-center shadow-xl shadow-brand-gold/5">
+                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Upload a Photo</h3>
-              <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
-                For best results, take a clear photo of your room well-lit, showing as much of the floor or wall as possible.
+              <h3 className="text-3xl font-bold mb-6 tracking-tight text-brand-charcoal italic">Begin Transformation</h3>
+              <p className="text-brand-taupe text-lg mb-12 max-w-sm mx-auto font-light leading-relaxed">
+                Upload a clear architectural blue-print or a photo of your space to initiate AI mapping.
               </p>
-              <label className="cursor-pointer bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition">
-                <span>Select Image</span>
+              <label className="cursor-pointer bg-brand-charcoal text-brand-gold px-12 py-6 rounded-full font-bold shadow-2xl shadow-brand-charcoal/20 hover:bg-black transition-all hover:scale-105 active:scale-95 inline-block uppercase tracking-widest text-[10px]">
+                <span>Initiate Upload</span>
                 <input type="file" className="hidden" accept="image/*" onChange={handleUpload} />
               </label>
             </div>
           ) : (
              <div className="absolute inset-0 flex flex-col">
-               <div className="flex-1 bg-zinc-800 relative">
-                 <div className="absolute inset-0 flex items-center justify-center text-zinc-500 font-medium">
-                   [Mock Uploaded Photo Display]
+               <div className="flex-1 bg-brand-charcoal relative">
+                 <div className="absolute inset-0 flex items-center justify-center text-brand-gold/20 font-bold uppercase tracking-[0.5em] text-xs italic">
+                   [ Processing Architectural Data ]
                  </div>
                  {/* This is where the Canvas and manual 4-point mapping tools go */}
                  {isMapping && (
                     <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                      <div className="border border-primary bg-primary/20 w-1/2 h-1/2 relative animate-pulse">
-                        <span className="absolute -top-6 left-0 text-primary font-bold text-xs bg-background/80 px-2 py-1 rounded">Mapping Surface...</span>
-                        <div className="absolute -top-1 -left-1 w-3 h-3 bg-white rounded-full border-2 border-primary"></div>
-                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full border-2 border-primary"></div>
-                        <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-white rounded-full border-2 border-primary"></div>
-                        <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-white rounded-full border-2 border-primary"></div>
+                      <div className="border-2 border-brand-gold bg-brand-gold/10 w-2/3 h-2/3 relative shadow-2xl">
+                        <span className="absolute -top-12 left-0 text-brand-gold font-bold text-[10px] bg-brand-charcoal border border-brand-gold/20 px-5 py-2.5 rounded-full uppercase tracking-widest shadow-2xl">Defining Boundary Matrix...</span>
+                        <div className="absolute -top-2.5 -left-2.5 w-6 h-6 bg-white rounded-full border-4 border-brand-gold shadow-xl"></div>
+                        <div className="absolute -top-2.5 -right-2.5 w-6 h-6 bg-white rounded-full border-4 border-brand-gold shadow-xl"></div>
+                        <div className="absolute -bottom-2.5 -left-2.5 w-6 h-6 bg-white rounded-full border-4 border-brand-gold shadow-xl"></div>
+                        <div className="absolute -bottom-2.5 -right-2.5 w-6 h-6 bg-white rounded-full border-4 border-brand-gold shadow-xl"></div>
                       </div>
                     </div>
                  )}
                </div>
-               <div className="h-16 bg-background border-t border-border flex items-center justify-between px-6">
-                 <Button variant="outline" onClick={() => setPhotoUploaded(false)}>Start Over</Button>
-                 <Button onClick={() => setIsMapping(!isMapping)}>
-                   {isMapping ? 'Finish Mapping' : 'Draw Floor Area'}
+               <div className="h-24 bg-white border-t border-brand-beige flex items-center justify-between px-10">
+                                   <Button variant="outline" className="rounded-full px-10 font-bold uppercase tracking-widest text-[10px] border-brand-beige" onClick={() => { setPhotoUploaded(false); setIsMapping(false); }}>Reset Blueprint</Button>
+
+                 <Button className="rounded-full px-12 py-6 font-bold uppercase tracking-widest text-[10px] shadow-xl shadow-brand-charcoal/10" onClick={() => setIsMapping(!isMapping)}>
+                   {isMapping ? 'Confirm Geometry' : 'Define Surface Area'}
                  </Button>
                </div>
              </div>
@@ -71,28 +73,37 @@ export default function UploadVisualizerPage() {
         </div>
 
         {/* Tools Sidebar */}
-        <aside className="w-80 bg-background border border-border rounded-xl p-6 flex flex-col gap-6 opacity-50 pointer-events-none" style={{ opacity: photoUploaded ? 1 : 0.5, pointerEvents: photoUploaded ? 'auto' : 'none' }}>
+        <aside className="w-full space-y-12" style={{ opacity: photoUploaded ? 1 : 0.4, pointerEvents: photoUploaded ? 'auto' : 'none' }}>
           <div>
-            <h3 className="font-semibold mb-3">1. Select Pattern</h3>
-            <div className="grid grid-cols-2 gap-2">
-              <button className="border border-primary bg-primary/10 rounded-md py-2 text-sm font-medium">Grid</button>
-              <button className="border border-border bg-background hover:bg-muted rounded-md py-2 text-sm font-medium">Brick</button>
-              <button className="border border-border bg-background hover:bg-muted rounded-md py-2 text-sm font-medium">Herringbone</button>
-              <button className="border border-border bg-background hover:bg-muted rounded-md py-2 text-sm font-medium">Diagonal</button>
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold mb-8">Spatial Layout Pattern</h3>
+            <div className="grid grid-cols-2 gap-5">
+              {['Grid', 'Brick', 'Herringbone', 'Diagonal'].map((pattern) => (
+                <button key={pattern} className={`border rounded-[1.5rem] py-6 text-[10px] font-bold uppercase tracking-widest transition-all ${pattern === 'Grid' ? 'border-brand-gold bg-brand-gold/10 text-brand-charcoal shadow-xl shadow-brand-gold/5' : 'border-brand-beige bg-white hover:bg-brand-cream text-brand-taupe'}`}>
+                  {pattern}
+                </button>
+              ))}
             </div>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">2. Choose Tile</h3>
-            <div className="space-y-2">
-               <select className="w-full border border-input rounded p-2 text-sm">
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold mb-8">Curated Collection</h3>
+            <div className="space-y-4">
+               <select className="w-full border border-brand-beige rounded-[1.5rem] px-8 py-6 text-xs font-bold uppercase tracking-widest bg-white focus:ring-2 focus:ring-brand-gold outline-none transition-all appearance-none cursor-pointer text-brand-charcoal">
                  <option>Statuario White Marble</option>
-                 <option>Emerald Green</option>
-                 <option>Rustic Wood Look</option>
+                 <option>Emerald Green Glossy</option>
+                 <option>Rustic Wood Textured</option>
                </select>
             </div>
           </div>
-          <div className="mt-auto">
-            <Button className="w-full" size="lg" disabled={!isMapping}>Save & Create Booking</Button>
+          <div className="pt-10">
+            <Button 
+                className="w-full rounded-[1.5rem] py-8 text-xs font-bold uppercase tracking-[0.2em] shadow-2xl shadow-brand-charcoal/10 transition-all hover:scale-[1.02]" 
+                onClick={() => {
+                  if (!isMapping) alert('Please define the surface boundary area first.');
+                  else alert('AI Visualization Generation Started...');
+                }}
+            >
+              Generate visualization ↗
+            </Button>
           </div>
         </aside>
       </div>
